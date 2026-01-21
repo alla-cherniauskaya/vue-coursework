@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coursework</title>
+    <link rel="stylesheet" href="styles.css">
+ 
+  </head>
+ 
+  <body>
+    <div class="container pt-5" id="app" v-cloak>
+      <div class="card">
+        <h1>План по изучению Vue.js</h1>
+        <h4> {{activeStep.headline}} </h4>
+        <div class="steps-centered">
+          <div v-for="(step, i) in courseSteps" :key="step.title" class="step">
+            <i class="btn-rounded" 
+              :class="{'inactive': currentCourseStepIndex < i, 'done': currentCourseStepIndex > i}"
+              @click="currentCourseStepIndex = i" > {{ i+1 }} </i> 
+            <span>{{step.title}}</span>
+          </div>
+        </div>
+        <div class="pt-5" v-if="!courseIsDone">
+          <button class="btn" :disabled="currentCourseStepIndex === 0" @click="goToPrevStep()"> Назад </button>
+          <button class="btn primary" @click="goToNextStep()"> {{ currentCourseStepIndex === 4 ? 'Закончить' : 'Вперёд'}} </button>
+        </div>
+        <div class="pt-5" v-else>
+          <button class="btn primary" @click="beginFromStart()"> Начать заново </button>
+        </div>
+      </div>
+     
+    </div>
+    
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> 
+    <script src="app.js"></script>
+  </body>
+</html>
